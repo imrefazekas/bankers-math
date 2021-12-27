@@ -52,9 +52,6 @@ let Services = {
 		}
 		return finals
 	},
-	minmax (value, min, max) {
-		return value < min ? min : (value > max ? max : value)
-	},
 	calculateDiffraction ( amount, diffraction, normalisationMethod, rounding = 2 ) {
 		let percentages = diffraction.map( (diff) => { return diff.percent } )
 		let percentageSum = percentages.reduce( (acc, percent) => { return acc + percent } )
