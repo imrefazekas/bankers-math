@@ -19,6 +19,9 @@ let Services = {
 	definedNumber (value) {
 		return value !== undefined && value !== null && ( value.isNaN ? (!value.isNaN() && (!value.isFinite || value.isFinite()) ) : !Number.isNaN(value) && Number.isFinite(value) )
 	},
+	minmax (value, min, max) {
+		return value < min ? min : (value > max ? max : value)
+	},
 	bankersRounding ( num, decimalPlaces = 2, base = 10 ) {
 		let pow = Math.pow(base, decimalPlaces)
 		let powed = +(num * pow)
