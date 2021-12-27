@@ -1,0 +1,34 @@
+{
+	"name": "bankers-math",
+	"version": "0.1.0",
+	"description": "Helper function for Bankers' calculus",
+	"keywords": [
+		"bankers",
+		"math"
+	],
+	"homepage": "https://github.com/imrefazekas/bankers-math",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/imrefazekas/bankers-math.git"
+	},
+	"bugs": {
+		"url": "http://github.com/imrefazekas/bankers-math/issues"
+	},
+	"author": {
+		"name": "Imre Fazekas",
+		"email": "mail@imrefazekas.me"
+	},
+	"license": "MIT",
+	"main": "./Banker.js",
+	"devDependencies": {
+		"jest": "^27.4.5"
+	},
+	"engines": {
+		"node": ">= 14.0.0"
+	},
+	"scripts": {
+		"lint": "eslint Banker.js",
+		"jest": "jest test/bankers.test.js",
+		"test": "jest test/bankers.test.js"
+	}
+}
