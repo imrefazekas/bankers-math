@@ -16,6 +16,9 @@ let Services = {
 	DIFFRA_PROPORT,
 	DIFFRA_PAYOFF,
 
+	defined (value) {
+		return value !== undefined && value !== null
+	},
 	definedNumber (value) {
 		return value !== undefined && value !== null && ( value.isNaN ? (!value.isNaN() && (!value.isFinite || value.isFinite()) ) : !Number.isNaN(value) && Number.isFinite(value) )
 	},
