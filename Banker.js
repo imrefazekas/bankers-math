@@ -14,7 +14,7 @@ const DIFF_TEMP = { min: 0, max: 0, fix: 0, percent: 0 }
 let Services = {
 	E,
 	NA,
-	DIFFRA_EQ
+	DIFFRA_EQ,
 	DIFFRA_PROPORT,
 	DIFFRA_PAYOFF,
 
