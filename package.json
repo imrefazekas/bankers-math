@@ -1,6 +1,6 @@
 {
 	"name": "bankers-math",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Helper function for Bankers' calculus",
 	"keywords": [
 		"bankers",
@@ -22,7 +22,7 @@
 	"main": "./Banker.js",
 	"types": "./index.d.ts",
 	"devDependencies": {
-		"jest": "^27.5.0"
+		"jest": "^27.5.1"
 	},
 	"engines": {
 		"node": ">= 14.0.0"

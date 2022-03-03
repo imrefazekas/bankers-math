@@ -3,6 +3,7 @@
 
 const NA = 'NA'
 const E = 1e-8
+const DIFFRA_EQ = 'Equilibrium'
 const DIFFRA_PROPORT = 'Proportionality'
 const DIFFRA_PAYOFF = 'Payoff'
 
@@ -13,6 +14,7 @@ const DIFF_TEMP = { min: 0, max: 0, fix: 0, percent: 0 }
 let Services = {
 	E,
 	NA,
+	DIFFRA_EQ
 	DIFFRA_PROPORT,
 	DIFFRA_PAYOFF,
 
@@ -69,15 +71,21 @@ let Services = {
 			feeTotal += feeValue
 		}
 
-		if ( normalisationMethod && normalisationMethod !== NA && feeTotal > amount ) {
-			if ( normalisationMethod === DIFFRA_PROPORT ) {
-				feeValues = Services.divide( amount, feeValues, rounding )
-			} else if ( normalisationMethod === DIFFRA_PAYOFF ) {
-				let toCut = feeTotal - amount
-				for (let i = feeValues.length - 1; toCut > 0 && i >= 0; ++i) {
-					let tc = toCut <= feeValues[i] ? toCut : feeValues[i]
-					feeValues[i] -= tc
-					toCut -= tc
+		if ( normalisationMethod && normalisationMethod !== NA ) {
+			if (feeTotal < amount) {
+				if ( normalisationMethod === DIFFRA_EQ )
+					feeValues = Services.divide( amount, feeValues, rounding )
+			}
+			else if (feeTotal > amount) {
+				if ( normalisationMethod === DIFFRA_PROPORT ) {
+					feeValues = Services.divide( amount, feeValues, rounding )
+				} else if ( normalisationMethod === DIFFRA_PAYOFF ) {
+					let toCut = feeTotal - amount
+					for (let i = feeValues.length - 1; toCut > 0 && i >= 0; ++i) {
+						let tc = toCut <= feeValues[i] ? toCut : feeValues[i]
+						feeValues[i] -= tc
+						toCut -= tc
+					}
 				}
 			}
 		}
