@@ -81,7 +81,7 @@ let Services = {
 					feeValues = Services.divide( amount, feeValues, rounding )
 				} else if ( normalisationMethod === DIFFRA_PAYOFF ) {
 					let toCut = feeTotal - amount
-					for (let i = feeValues.length - 1; toCut > 0 && i >= 0; ++i) {
+					for (let i = feeValues.length - 1; toCut > 0 && i >= 0; --i) {
 						let tc = toCut <= feeValues[i] ? toCut : feeValues[i]
 						feeValues[i] -= tc
 						toCut -= tc
