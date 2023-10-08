@@ -27,4 +27,7 @@ describe('Diffraction', function () {
 		console.log( Services.calculateDiffraction( 1000, [ { percent: 30 }, { percent: 40 }, { percent: 60 } ], Services.DIFFRA_PROPORT ) )
 		console.log( Services.calculateDiffraction( 1000, [ { percent: 30 }, { percent: 40 }, { percent: 60 } ], Services.DIFFRA_PAYOFF ) )
 	} )
+	test('Diffraction', async function () {
+		console.log( Services.variance( [ 100, 120, 80 ] ) )
+	} )
 } )

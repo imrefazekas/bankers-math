@@ -18,6 +18,21 @@ let Services = {
 	DIFFRA_PROPORT,
 	DIFFRA_PAYOFF,
 
+	sum (list) {
+		return list.length > 0 ? list.reduce((acc, current) => acc + current, 0) : 0
+	},
+	avg (list) {
+		return list.length > 0 ? Services.sum(list) / list.length : 0
+	},
+	variance (list) {
+		let avg = Services.avg(list)
+		const squareDiffs = list.map((value) => {
+			const diff = value - avg;
+			return diff * diff;
+		})
+		return Services.toFixedNumber( Math.sqrt( squareDiffs.reduce((acc, current) => acc + current, 0) / list.length ), 6 )
+	},
+
 	defined (value) {
 		return value !== undefined && value !== null
 	},
