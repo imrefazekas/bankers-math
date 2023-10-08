@@ -30,7 +30,22 @@ let Services = {
 			const diff = value - avg;
 			return diff * diff;
 		})
-		return Services.toFixedNumber( Math.sqrt( squareDiffs.reduce((acc, current) => acc + current, 0) / list.length ), 6 )
+		return Math.sqrt( squareDiffs.reduce((acc, current) => acc + current, 0) / list.length )
+	},
+	analyseValues ( list, decimalPlaces = 6 ) {
+		let sum = Services.sum(list)
+		let avg = Services.toFixedNumber( list.length > 0 ? sum / list.length : 0, decimalPlaces )
+
+		const squareDiffs = list.map((value) => {
+			const diff = value - avg;
+			return diff * diff;
+		})
+		let variance = Services.toFixedNumber( Math.sqrt( squareDiffs.reduce((acc, current) => acc + current, 0) / list.length ), decimalPlaces )
+		return {
+			sum,
+			avg,
+			variance
+		}
 	},
 
 	defined (value) {
