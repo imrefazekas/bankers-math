@@ -25,6 +25,8 @@ let Services = {
 		return list.length > 0 ? Services.sum(list) / list.length : 0
 	},
 	variance (list) {
+		if (list.length === 0) return 0
+
 		let avg = Services.avg(list)
 		const squareDiffs = list.map((value) => {
 			const diff = value - avg;
