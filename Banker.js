@@ -41,7 +41,7 @@ let Services = {
 		);
 	},
 	analyseValues(list, decimalPlaces = 6) {
-		let sum = Services.sum(list);
+		let sum = Services.toFixedNumber(Services.sum(list), decimalPlaces);
 		let avg = Services.toFixedNumber(
 			list.length > 0 ? sum / list.length : 0,
 			decimalPlaces,
