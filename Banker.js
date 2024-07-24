@@ -42,28 +42,29 @@ let Services = {
 		);
 	},
 	variance(list, decimalPlaces) {
+		let sum = Services.toFixedNumber(Services.sum(list), decimalPlaces);
+		const avg = Services.toFixedNumber(
+			list.length > 0 ? sum / list.length : 0,
+			decimalPlaces,
+		);
 		const squareDiffs = list.map((value) => {
 			const diff = value - avg;
 			return diff * diff;
 		});
-		return Services.toFixedNumber(
+		const variance = Services.toFixedNumber(
 			Math.sqrt(
 				squareDiffs.reduce((acc, current) => acc + current, 0) /
 					list.length,
 			),
 			decimalPlaces,
 		);
+
+		return { sum, avg, variance };
 	},
 	analyseValues(list, decimalPlaces = 6) {
 		if (!(list.length >= 0)) return DEF_ANALYSE;
 
-		let sum = Services.toFixedNumber(Services.sum(list), decimalPlaces);
-		let avg = Services.toFixedNumber(
-			list.length > 0 ? sum / list.length : 0,
-			decimalPlaces,
-		);
-
-		let variance = Services.variance(list, decimalPlaces);
+		const { sum, avg, variance } = Services.variance(list, decimalPlaces);
 
 		return {
 			sum,
@@ -89,7 +90,7 @@ let Services = {
 			variance: Services.variance(
 				list.map((d) => d.variance),
 				decimalPlaces,
-			),
+			).variance,
 			min: Math.min(...list.map((d) => d.min)),
 			max: Math.max(...list.map((d) => d.max)),
 		};
