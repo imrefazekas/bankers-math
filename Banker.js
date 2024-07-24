@@ -11,6 +11,7 @@ const reducer = (accumulator, currentValue) => {
 };
 
 const DIFF_TEMP = { min: 0, max: 0, fix: 0, percent: 0 };
+const DEF_ANALYSE = { min: 0, max: 0, avg: 0, variance: 0, sum: 0 };
 
 let Services = {
 	E,
@@ -40,34 +41,57 @@ let Services = {
 				list.length,
 		);
 	},
+	variance(list, decimalPlaces) {
+		const squareDiffs = list.map((value) => {
+			const diff = value - avg;
+			return diff * diff;
+		});
+		return Services.toFixedNumber(
+			Math.sqrt(
+				squareDiffs.reduce((acc, current) => acc + current, 0) /
+					list.length,
+			),
+			decimalPlaces,
+		);
+	},
 	analyseValues(list, decimalPlaces = 6) {
+		if (!(list.length >= 0)) return DEF_ANALYSE;
+
 		let sum = Services.toFixedNumber(Services.sum(list), decimalPlaces);
 		let avg = Services.toFixedNumber(
 			list.length > 0 ? sum / list.length : 0,
 			decimalPlaces,
 		);
 
-		let variance = 0;
-		if (list.length > 0) {
-			const squareDiffs = list.map((value) => {
-				const diff = value - avg;
-				return diff * diff;
-			});
-			variance = Services.toFixedNumber(
-				Math.sqrt(
-					squareDiffs.reduce((acc, current) => acc + current, 0) /
-						list.length,
-				),
-				decimalPlaces,
-			);
-		}
+		let variance = Services.variance(list, decimalPlaces);
 
 		return {
 			sum,
 			avg,
 			variance,
-			min: list.length > 0 ? Math.min(...list) : 0,
-			max: list.length > 0 ? Math.max(...list) : 0,
+			min: Math.min(...list),
+			max: Math.max(...list),
+		};
+	},
+
+	aggregateAnalysedValues(list, decimalPlaces = 6) {
+		if (!(list.length >= 0)) return DEF_ANALYSE;
+
+		return {
+			sum: Services.toFixedNumber(
+				Services.sum(list.map((d) => d.sum)),
+				decimalPlaces,
+			),
+			avg: Services.toFixedNumber(
+				Services.sum(list.map((d) => d.avg)) / list.length,
+				decimalPlaces,
+			),
+			variance: Services.variance(
+				list.map((d) => d.variance),
+				decimalPlaces,
+			),
+			min: Math.min(...list.map((d) => d.min)),
+			max: Math.max(...list.map((d) => d.max)),
 		};
 	},
 
