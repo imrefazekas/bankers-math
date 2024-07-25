@@ -1,6 +1,6 @@
 {
 	"name": "bankers-math",
-	"version": "0.2.8",
+	"version": "0.2.9",
 	"description": "Helper function for Bankers' calculus",
 	"keywords": [
 		"bankers",

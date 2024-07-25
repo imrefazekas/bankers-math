@@ -62,7 +62,7 @@ let Services = {
 		return { sum, avg, variance };
 	},
 	analyseValues(list, decimalPlaces = 6) {
-		if (!(list.length >= 0)) return DEF_ANALYSE;
+		if (!(list.length > 0)) return DEF_ANALYSE;
 
 		const { sum, avg, variance } = Services.variance(list, decimalPlaces);
 
